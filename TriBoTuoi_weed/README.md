@@ -1,6 +1,7 @@
 # Tap hoa Chuoi Bi To
 
 ## Code format
+``` npm install --save-dev --save-exact prettier ``
 ``` npx prettier --write . ```
 
 ## Run backend
