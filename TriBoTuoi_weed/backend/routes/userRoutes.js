@@ -66,6 +66,8 @@ userRouter.put(
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       user.isAdmin = Boolean(req.body.isAdmin);
+      user.isSuspended = Boolean(req.body.isSuspended);
+
       const updatedUser = await user.save();
       res.send({ message: "User Updated", user: updatedUser });
     } else {
@@ -92,17 +94,24 @@ userRouter.delete(
     }
   })
 );
+
 userRouter.post(
   "/signin",
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
+      if (user.isSuspended) {
+        res.status(401).send({ message: "User is suspended" });
+        return;
+      }
+      
       if (bcrypt.compareSync(req.body.password, user.password)) {
         res.send({
           _id: user._id,
           name: user.name,
           email: user.email,
           isAdmin: user.isAdmin,
+          isSuspended: user.isSuspended,
           token: generateToken(user),
         });
         return;
@@ -126,6 +135,7 @@ userRouter.post(
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      isSuspended: user.isSuspended,
       token: generateToken(user),
     });
   })

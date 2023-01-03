@@ -33,7 +33,9 @@ import ProductEditScreen from './screens/ProductEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
 import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
-import MapScreen from './screens/MapScreen';
+// import MapScreen from './screens/MapScreen';
+
+import Footer from './components/Footer';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -92,7 +94,7 @@ function App() {
                 <SearchBox />
                 <Nav className="me-auto  w-100  justify-content-end">
                   <Link to="/cart" className="nav-link">
-                    Cart
+                    Cart {' '}
                     {cart.cartItems.length > 0 && (
                       <Badge pill bg="danger">
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -181,14 +183,14 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route
+              {/* <Route
                 path="/map"
                 element={
                   <ProtectedRoute>
                     <MapScreen />
                   </ProtectedRoute>
                 }
-              />
+              /> */}
               <Route path="/placeorder" element={<PlaceOrderScreen />} />
               <Route
                 path="/order/:id"
@@ -266,7 +268,9 @@ function App() {
           </Container>
         </main>
         <footer>
-          <div className="text-center">Chuoi Bi To</div>
+          {/* <div className="text-center">Chuoi Bi To</div>
+           */}
+           <Footer/>
         </footer>
       </div>
     </BrowserRouter>
