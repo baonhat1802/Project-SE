@@ -76,7 +76,7 @@ export default function OrderScreen() {
   });
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
-  //////////////////////////////////////
+
   const updateStock_ = async (item) => {
     const { data } = await axios.get(`/api/products/${item._id}`);
     await axios.put(`/api/products/${item._id}`,
@@ -116,8 +116,21 @@ export default function OrderScreen() {
       });
   }
 
+  const checkStock_ = async (item) => {
+    const { data } = await axios.get(`/api/products/${item._id}`);
+    if(data.countInStock - item.quantity < 0)
+      navigate('/signin?redirect=/cart');
+     
+  };
+
+  function checkStock(order){
+     order.orderItems.map((item) => (checkStock_(item)));
+  };
+
+
   function onApprove(data, actions) {
-    return actions.order.capture().then(async function (details) {
+    
+    return actions.order.capture().then(async function (details) { 
       try {
         dispatch({ type: 'PAY_REQUEST' });
         const { data } = await axios.put(
