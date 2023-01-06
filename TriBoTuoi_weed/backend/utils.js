@@ -1,5 +1,5 @@
-import jwt from "jsonwebtoken";
-import mg from "mailgun-js";
+import jwt from 'jsonwebtoken';
+import mg from 'mailgun-js';
 
 export const generateToken = (user) => {
   return jwt.sign(
@@ -12,7 +12,7 @@ export const generateToken = (user) => {
     },
     process.env.JWT_SECRET,
     {
-      expiresIn: "30d",
+      expiresIn: '30d',
     }
   );
 };
@@ -23,22 +23,22 @@ export const isAuth = (req, res, next) => {
     const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
     jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
       if (err) {
-        res.status(401).send({ message: "Invalid Token" });
+        res.status(401).send({ message: 'Invalid Token' });
       } else {
         req.user = decode;
         next();
       }
     });
   } else {
-    res.status(401).send({ message: "No Token" });
+    res.status(401).send({ message: 'No Token' });
   }
 };
 
 export const isAdmin = (req, res, next) => {
-  if (req.user && req.user.isAdmin) {
+  if (req.user && (req.user.isAdmin)) {
     next();
   } else {
-    res.status(401).send({ message: "Invalid Admin Token" });
+    res.status(401).send({ message: 'Invalid Admin Token' });
   }
 };
 
@@ -46,7 +46,7 @@ export const isStaff = (req, res, next) => {
   if (req.user && (req.user.isAdmin || req.user.isEmployee)) {
     next();
   } else {
-    res.status(401).send({ message: "Invalid Staff Token" });
+    res.status(401).send({ message: 'Invalid Staff Token' });
   }
 };
 
@@ -80,7 +80,7 @@ export const payOrderEmailTemplate = (order) => {
     </tr>
   `
     )
-    .join("\n")}
+    .join('\n')}
   </tbody>
   <tfoot>
   <tr>
@@ -105,6 +105,7 @@ export const payOrderEmailTemplate = (order) => {
   <p>
   - Full name: ${order.shippingAddress.fullName},<br/>
   - Address: ${order.shippingAddress.address},<br/>
+  - Phone Number: ${order.shippingAddress.phoneNumber},<br/>
   - City: ${order.shippingAddress.city},<br/>
   - Country: ${order.shippingAddress.country},<br/>
   - Postal code: ${order.shippingAddress.postalCode}<br/>

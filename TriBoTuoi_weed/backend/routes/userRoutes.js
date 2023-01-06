@@ -107,7 +107,7 @@ userRouter.post(
         res.status(401).send({ message: "User is suspended" });
         return;
       }
-      
+
       if (bcrypt.compareSync(req.body.password, user.password)) {
         res.send({
           _id: user._id,

@@ -1,18 +1,18 @@
-import express from 'express';
-import multer from 'multer';
-import { v2 as cloudinary } from 'cloudinary';
-import streamifier from 'streamifier';
-import { isAdmin, isStaff, isAuth } from '../utils.js';
+import express from "express";
+import multer from "multer";
+import { v2 as cloudinary } from "cloudinary";
+import streamifier from "streamifier";
+import { isAdmin, isStaff, isAuth } from "../utils.js";
 
 const upload = multer();
 
 const uploadRouter = express.Router();
 
 uploadRouter.post(
-  '/',
+  "/",
   isAuth,
   isStaff,
-  upload.single('file'),
+  upload.single("file"),
   async (req, res) => {
     cloudinary.config({
       cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
