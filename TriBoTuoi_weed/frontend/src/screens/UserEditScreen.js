@@ -47,6 +47,8 @@ export default function UserEditScreen() {
     const [email, setEmail] = useState('')
 
     const [isSuspended, setSuspended] = useState(false)
+    const [isEmployee, setIsEmployee] = useState(false)
+
     const [isAdmin, setIsAdmin] = useState(false)
 
     useEffect(() => {
@@ -60,6 +62,8 @@ export default function UserEditScreen() {
                 setEmail(data.email)
                 setIsAdmin(data.isAdmin)
                 setSuspended(data.isSuspended)
+                setIsEmployee(data.isEmployee)
+
                 dispatch({ type: 'FETCH_SUCCESS' })
             } catch (err) {
                 dispatch({
@@ -77,7 +81,7 @@ export default function UserEditScreen() {
             dispatch({ type: 'UPDATE_REQUEST' })
             await axios.put(
                 `/api/users/${userId}`,
-                { _id: userId, name, email, isAdmin, isSuspended },
+                { _id: userId, name, email, isAdmin, isSuspended, isEmployee },
                 {
                     headers: { Authorization: `Bearer ${userInfo.token}` },
                 }
@@ -139,6 +143,15 @@ export default function UserEditScreen() {
                         label="isSuspened"
                         checked={isSuspended}
                         onChange={(e) => setSuspended(e.target.checked)}
+                    />
+
+                    <Form.Check
+                        className="mb-4"
+                        type="checkbox"
+                        id="isEmployee"
+                        label="isEmployee"
+                        checked={isEmployee}
+                        onChange={(e) => setIsEmployee(e.target.checked)}
                     />
 
                     <div className="mb-3">

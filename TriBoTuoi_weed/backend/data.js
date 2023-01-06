@@ -3,17 +3,19 @@ import bcrypt from 'bcryptjs';
 const data = {
   users: [
     {
-      name: 'Basir',
+      name: 'Italic Locks',
       email: 'admin@example.com',
       password: bcrypt.hashSync('123456'),
       isAdmin: true,
+      isEmployee: false,
       isSuspened: false,
     },
     {
       name: 'John',
-      email: 'user@example.com',
+      email: 'emp@example.com',
       password: bcrypt.hashSync('123456'),
       isAdmin: false,
+      isEmployee: true,
       isSuspened: false,
     },
     {
@@ -21,6 +23,7 @@ const data = {
       email: 'admin2@example.com',
       password: bcrypt.hashSync('123456'),
       isAdmin: true,
+      isEmployee: false,
       isSuspened: false,
     },
     {
@@ -28,6 +31,7 @@ const data = {
       email: 'user@example.com',
       password: bcrypt.hashSync('123456'),
       isAdmin: false,
+      isEmployee: false,
       isSuspened: false,
     },
     {
@@ -35,6 +39,7 @@ const data = {
       email: 'ligma@gmail.com',
       password: bcrypt.hashSync('123456'),
       isAdmin: false,
+      isEmployee: false,
       isSuspended: true,
     },
   ],
@@ -94,7 +99,7 @@ const data = {
     },
     {
       // https://www.bachhoaxanh.com/trai-cay-tuoi-ngon/tao-fuji-mini-new-zealand-hop-1kg-8-10-trai
-      name: 'Táo dai mini New Zealand hộp 1kg (8 - 10 trái)',
+      name: 'Táo fuji mini New Zealand hộp 1kg (8 - 10 trái)',
       slug: 'tao-dai',
       category: 'Trái cây',
       image: 'https://cdn.tgdd.vn/Products/Images/8788/296231/bhx/tao-fuji-mini-new-zealand-hop-1kg-8-10-trai-202210290835060876.jpg',
@@ -159,7 +164,7 @@ const data = {
     },
     {
       // https://www.bachhoaxanh.com/cu/bau-sao-trai-500g-600g
-      name: 'Bầu đuồi trái 500g - 600g',
+      name: 'Bầu sao trái 500g - 600g',
       slug: 'bau-duoi',
       category: 'Củ, quả',
       image: 'https://cdn.tgdd.vn/Products/Images/8785/278286/bhx/bau-sao-trai-500g-600g-202205201651191146.jpg',

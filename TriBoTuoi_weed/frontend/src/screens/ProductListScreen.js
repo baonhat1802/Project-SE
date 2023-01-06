@@ -99,7 +99,7 @@ export default function ProductListScreen() {
     }, [page, userInfo, successDelete])
 
     const createHandler = async () => {
-        if (window.confirm('Are you sure to create?')) {
+        if (window.confirm('You are going to create a product with default properties, are you sure to create?')) {
             try {
                 dispatch({ type: 'CREATE_REQUEST' })
                 const { data } = await axios.post(
@@ -109,7 +109,7 @@ export default function ProductListScreen() {
                         headers: { Authorization: `Bearer ${userInfo.token}` },
                     }
                 )
-                toast.success('product created successfully')
+                toast.success('Default product created successfully')
                 dispatch({ type: 'CREATE_SUCCESS' })
                 navigate(`/admin/product/${data.product._id}`)
             } catch (err) {
@@ -169,7 +169,7 @@ export default function ProductListScreen() {
                                 <th>NAME</th>
                                 <th>PRICE</th>
                                 <th>CATEGORY</th>
-                                <th>BRAND</th>
+                                <th>ORIGIN</th>
                                 <th>STOCK</th>
                                 <th>ACTIONS</th>
                             </tr>

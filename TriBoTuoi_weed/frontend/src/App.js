@@ -36,6 +36,7 @@ import UserEditScreen from './screens/UserEditScreen';
 // import MapScreen from './screens/MapScreen';
 
 import Footer from './components/Footer';
+import EmployeeRoute from './components/EmployeeRoute';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -136,6 +137,16 @@ function App() {
                       </LinkContainer>
                       <LinkContainer to="/admin/users">
                         <NavDropdown.Item>Users</NavDropdown.Item>
+                      </LinkContainer>
+                    </NavDropdown>
+                  )}
+                  {userInfo && userInfo.isEmployee && (
+                    <NavDropdown title="Employee" id="employee-nav-dropdown">
+                      <LinkContainer to="/employee/products">
+                        <NavDropdown.Item>Products</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/employee/orders">
+                        <NavDropdown.Item>Orders</NavDropdown.Item>
                       </LinkContainer>
                     </NavDropdown>
                   )}
@@ -260,6 +271,31 @@ function App() {
                   <AdminRoute>
                     <UserEditScreen />
                   </AdminRoute>
+                }
+              ></Route>
+              {/* EMPLOYEE ROUTES*/}
+              <Route
+                path="/employee/products"
+                element={
+                  <EmployeeRoute>
+                    <ProductListScreen />
+                  </EmployeeRoute>
+                }
+              ></Route>
+              <Route
+                path="/employee/product/:id"
+                element={
+                  <EmployeeRoute>
+                    <ProductEditScreen />
+                  </EmployeeRoute>
+                }
+              ></Route>
+              <Route
+                path="/employee/orders"
+                element={
+                  <EmployeeRoute>
+                    <OrderListScreen />
+                  </EmployeeRoute>
                 }
               ></Route>
 

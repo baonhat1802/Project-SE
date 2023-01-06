@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useReducer } from 'react';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useRouteError } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
@@ -357,7 +357,7 @@ export default function OrderScreen() {
                     {loadingPay && <LoadingBox></LoadingBox>}
                   </ListGroup.Item>
                 )}
-                {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                {(userInfo.isAdmin || userInfo.isEmployee) && order.isPaid && !order.isDelivered && (
                   <ListGroup.Item>
                     {loadingDeliver && <LoadingBox></LoadingBox>}
                     <div className="d-grid">

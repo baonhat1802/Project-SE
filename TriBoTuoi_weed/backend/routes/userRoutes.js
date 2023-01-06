@@ -48,6 +48,8 @@ userRouter.put(
         name: updatedUser.name,
         email: updatedUser.email,
         isAdmin: updatedUser.isAdmin,
+        isEmployee: updatedUser.isEmployee,
+
         token: generateToken(updatedUser),
       });
     } else {
@@ -67,6 +69,7 @@ userRouter.put(
       user.email = req.body.email || user.email;
       user.isAdmin = Boolean(req.body.isAdmin);
       user.isSuspended = Boolean(req.body.isSuspended);
+      user.isEmployee = Boolean(req.body.isEmployee);
 
       const updatedUser = await user.save();
       res.send({ message: "User Updated", user: updatedUser });
@@ -84,7 +87,7 @@ userRouter.delete(
     const user = await User.findById(req.params.id);
     if (user) {
       if (user.email === "admin@example.com") {
-        res.status(400).send({ message: "Can Not Delete Admin User" });
+        res.status(400).send({ message: "Can Not Remove This Admin User" });
         return;
       }
       await user.remove();
@@ -112,6 +115,8 @@ userRouter.post(
           email: user.email,
           isAdmin: user.isAdmin,
           isSuspended: user.isSuspended,
+          isEmployee: user.isEmployee,
+
           token: generateToken(user),
         });
         return;
@@ -136,6 +141,8 @@ userRouter.post(
       email: user.email,
       isAdmin: user.isAdmin,
       isSuspended: user.isSuspended,
+      isEmployee: user.isEmployee,
+
       token: generateToken(user),
     });
   })

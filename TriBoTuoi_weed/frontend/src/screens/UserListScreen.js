@@ -108,6 +108,7 @@ export default function UserListScreen() {
                             <th>EMAIL</th>
                             <th>ADMIN</th>
                             <th>SUSPENDED</th>
+                            <th>EMPLOYEE</th>
                             <th>ACTIONS</th>
                         </tr>
                     </thead>
@@ -119,6 +120,7 @@ export default function UserListScreen() {
                                 <td>{user.email}</td>
                                 <td>{user.isAdmin ? 'X' : '-'}</td>
                                 <td>{user.isSuspended ? 'X' : '-'}</td>
+                                <td>{user.isEmployee ? 'X' : '-'}</td>
                                 <td>
                                     <Button
                                         type="button"

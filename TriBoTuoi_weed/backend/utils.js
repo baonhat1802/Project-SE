@@ -8,6 +8,7 @@ export const generateToken = (user) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      isEmployee: user.isEmployee,
     },
     process.env.JWT_SECRET,
     {
@@ -34,10 +35,18 @@ export const isAuth = (req, res, next) => {
 };
 
 export const isAdmin = (req, res, next) => {
-  if (req.user && req.user.isAdmin) {
+  if (req.user && (req.user.isAdmin)) {
     next();
   } else {
     res.status(401).send({ message: 'Invalid Admin Token' });
+  }
+};
+
+export const isStaff = (req, res, next) => {
+  if (req.user && (req.user.isAdmin || req.user.isEmployee)) {
+    next();
+  } else {
+    res.status(401).send({ message: 'Invalid Staff Token' });
   }
 };
 
@@ -94,11 +103,11 @@ export const payOrderEmailTemplate = (order) => {
 
   <h2>Shipping address</h2>
   <p>
-  ${order.shippingAddress.fullName},<br/>
-  ${order.shippingAddress.address},<br/>
-  ${order.shippingAddress.city},<br/>
-  ${order.shippingAddress.country},<br/>
-  ${order.shippingAddress.postalCode}<br/>
+  - Full name: ${order.shippingAddress.fullName},<br/>
+  - Address: ${order.shippingAddress.address},<br/>
+  - City: ${order.shippingAddress.city},<br/>
+  - Country: ${order.shippingAddress.country},<br/>
+  - Postal code: ${order.shippingAddress.postalCode}<br/>
   </p>
   <hr/>
   <p>
